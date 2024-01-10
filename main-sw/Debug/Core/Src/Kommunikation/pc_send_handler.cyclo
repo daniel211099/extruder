@@ -1,0 +1,8 @@
+../Core/Src/Kommunikation/pc_send_handler.c:15:6:sendDiamExt_impl	1
+../Core/Src/Kommunikation/pc_send_handler.c:26:6:sendDiamBack_impl	1
+../Core/Src/Kommunikation/pc_send_handler.c:38:6:sendState_impl	1
+../Core/Src/Kommunikation/pc_send_handler.c:49:6:sendSpeed_impl	1
+../Core/Src/Kommunikation/pc_send_handler.c:61:6:sendCPvalue_impl	1
+../Core/Src/Kommunikation/pc_send_handler.c:72:6:sendCIvalue_impl	1
+../Core/Src/Kommunikation/pc_send_handler.c:83:6:sendCDvalue_impl	1
+../Core/Src/Kommunikation/pc_send_handler.c:94:15:createPcSendHandler	1

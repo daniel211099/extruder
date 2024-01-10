@@ -1,0 +1,14 @@
+../Core/Src/Kommunikation/pc_recieve_handler.c:32:18:createPcReceiveHandler	1
+../Core/Src/Kommunikation/pc_recieve_handler.c:53:6:handleSetSpeed	2
+../Core/Src/Kommunikation/pc_recieve_handler.c:61:6:handleSetState	3
+../Core/Src/Kommunikation/pc_recieve_handler.c:73:6:handleSetCP	1
+../Core/Src/Kommunikation/pc_recieve_handler.c:77:6:handleSetCI	1
+../Core/Src/Kommunikation/pc_recieve_handler.c:81:6:handleSetCD	1
+../Core/Src/Kommunikation/pc_recieve_handler.c:86:6:handleGetState	1
+../Core/Src/Kommunikation/pc_recieve_handler.c:89:6:handleGetSpeed	1
+../Core/Src/Kommunikation/pc_recieve_handler.c:92:6:handleGetCP	1
+../Core/Src/Kommunikation/pc_recieve_handler.c:96:6:handleGetCI	1
+../Core/Src/Kommunikation/pc_recieve_handler.c:100:6:handleGetCD	1
+../Core/Src/Kommunikation/pc_recieve_handler.c:105:6:processPcInterfaceMessage	1
+../Core/Src/Kommunikation/pc_recieve_handler.c:109:7:extractFloatValue	8
+../Core/Src/Kommunikation/pc_recieve_handler.c:132:5:extractIntValue	8

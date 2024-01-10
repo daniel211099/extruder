@@ -1,0 +1,8 @@
+../Core/Src/Regelung/pid_controller.c:9:6:set_kp	16	static
+../Core/Src/Regelung/pid_controller.c:13:7:get_kp	16	static
+../Core/Src/Regelung/pid_controller.c:17:6:set_ki	16	static
+../Core/Src/Regelung/pid_controller.c:21:7:get_ki	16	static
+../Core/Src/Regelung/pid_controller.c:25:6:set_kd	16	static
+../Core/Src/Regelung/pid_controller.c:29:7:get_kd	16	static
+../Core/Src/Regelung/pid_controller.c:33:15:pid_init	88	static
+../Core/Src/Regelung/pid_controller.c:55:7:pid_update	40	static
