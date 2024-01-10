@@ -1,4 +1,4 @@
 ../Core/Src/SensorActuators/motor.c:11:5:getSpeed	1
-../Core/Src/SensorActuators/motor.c:16:6:setSpeed	2
-../Core/Src/SensorActuators/motor.c:37:6:calculate_Periode_Motor	2
+../Core/Src/SensorActuators/motor.c:16:6:setSpeed	3
+../Core/Src/SensorActuators/motor.c:36:6:generatePWM	1
 ../Core/Src/SensorActuators/motor.c:60:7:initMotor	1
