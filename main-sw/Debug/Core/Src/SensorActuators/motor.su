@@ -1,4 +1,4 @@
 ../Core/Src/SensorActuators/motor.c:11:5:getSpeed	16	static
 ../Core/Src/SensorActuators/motor.c:16:6:setSpeed	24	static
-../Core/Src/SensorActuators/motor.c:37:6:calculate_Periode_Motor	32	static
+../Core/Src/SensorActuators/motor.c:36:6:generatePWM	72	static
 ../Core/Src/SensorActuators/motor.c:60:7:initMotor	32	static

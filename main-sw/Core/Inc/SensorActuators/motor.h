@@ -30,6 +30,6 @@ struct Motor {
 
 // Konstruktor
 Motor initMotor(TIM_HandleTypeDef *timer);
-void generatePWM(Motor* motor, int frequency);
+void generatePWM(Motor *motor, int frequency);
 void calculate_Periode_Motor(Motor *motor,float f);
 #endif /* INC_MOTOR_MOTOR_CONTROL_H_ */
