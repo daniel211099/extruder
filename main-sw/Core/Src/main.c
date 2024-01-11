@@ -149,7 +149,7 @@ int main(void)
   TSC2046_Begin(&hspi2, TS_CS_GPIO_Port, TS_CS_Pin);
 
 
-  HMI_init(&stateMachine, &sensorExtruder, &sensorBack, &pidController);
+
   HAL_TIM_PWM_Start(&htim1, 0);
   stateMachine = initStateMachine(&motor);
   pidController = pid_init(1.0, 0.0,0.0, 1.75);
@@ -162,6 +162,8 @@ int main(void)
   HAL_UART_Receive_IT(&huart1, (uint8_t *)uartDataSensorExtruder.data.receivedData, 1);
   HAL_UART_Receive_IT(&huart6, (uint8_t *)uartDataSensorBack.data.receivedData, 1);
   HAL_UART_Receive_IT(&huart2, (uint8_t *)uartDataPc.data.receivedData, 1);
+
+  hmi = HMI_init(&stateMachine, &sensorExtruder, &sensorBack, &pidController);
   /* USER CODE END 2 */
 
   /* Infinite loop */
