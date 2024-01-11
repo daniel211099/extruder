@@ -97,7 +97,7 @@ void HMI_getTouch(TS_TOUCH_DATA_Def myTS_Handle, float Soll, bool Reg_aktiv, int
 
   				HAL_GPIO_WritePin(GPIOA, LED_Pin, GPIO_PIN_SET);
 			}
-			else
+			elseif(Reg_aktiv ==1)
 			{
 				ILI9341_Fill_Rect(180, 140, 300, 180, COLOR_RED);
 				ILI9341_printText("AUS", 230,  155, COLOR_WHITE, COLOR_RED, 2);
@@ -107,6 +107,14 @@ void HMI_getTouch(TS_TOUCH_DATA_Def myTS_Handle, float Soll, bool Reg_aktiv, int
 
 				HAL_GPIO_WritePin(GPIOA, LED_Pin, GPIO_PIN_RESET);
 			}
+			elseif(Reg_aktiv ==2)
+			{
+				ILI9341_Fill_Rect(180, 140, 300, 180, COLOR_RED);
+				ILI9341_printText("AUS", 230,  155, COLOR_WHITE, COLOR_RED, 2);
+				Reg_aktiv = 0;
+
+				HAL_GPIO_WritePin(GPIOA, LED_Pin, GPIO_PIN_RESET);
+						}
 
 		}
 
@@ -151,5 +159,7 @@ void HMI_getTouch(TS_TOUCH_DATA_Def myTS_Handle, float Soll, bool Reg_aktiv, int
 		}
 
 
-	  		}
+	}
+
+
 }
