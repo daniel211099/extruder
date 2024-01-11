@@ -16,9 +16,25 @@
 #include <stdbool.h>
 #include "HMI/TSC2046.h"
 #include "main.h"
+#include "Management/global_state_machine.h"
+#include "SensorActuators/sensor.h"
+#include "Regelung/pid_controller.h"
 
-void HMI_init(float Soll);
+typedef struct Hmi Hmi; // Vorwärtsdeklaration
 
-void HMI_getTouch(TS_TOUCH_DATA_Def myTS_Handle, float Soll, bool Reg_aktiv, int Blob);
+typedef struct {
+	StateMachine* stateMachine;
+	Sensor* sensorExtruder;
+	Sensor* sensorBack;
+} HmiInformation;
+
+struct Hmi{
+	HmiInformation HmiInformation;
+};
+
+
+Hmi HMI_init(StateMachine* stateMachine, Sensor* sensorExtruder, Sensor* sensorBack, PIDController *pidController);
+
+void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, StateMachine *state, PIDController *pidController);
 
 #endif /* INC_HMI_HMI_DISPLAY_H_ */

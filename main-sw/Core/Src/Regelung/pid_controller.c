@@ -29,8 +29,15 @@ void set_kd(PIDController *pid, float kd) {
 float get_kd(const PIDController *pid) {
     return pid->data.kd;
 }
+void set_setPoint(PIDController *pid, float setPoint) {
+	pid->data.setpoint = setPoint;
+}
 
-PIDController pid_init(float kp, float ki, float kd) {
+float get_setPoint(const PIDController *pid) {
+    return pid->data.setpoint;
+}
+
+PIDController pid_init(float kp, float ki, float kd, float setpoint) {
     PIDController pidController;
     pidController.data.kp = kp;
     pidController.data.ki = ki;
@@ -38,16 +45,19 @@ PIDController pid_init(float kp, float ki, float kd) {
     pidController.data.setpoint = 0.0;
     pidController.data.last_error = 0.0;
     pidController.data.integral = 0.0;
+    pidController.data.setpoint = setpoint;
 
     //Initialisierung der getter FUnktionen
     pidController.get_kp = get_kp;
     pidController.get_ki = get_ki;
     pidController.get_kd = get_kd;
+    pidController.get_setPoint = get_setPoint;
 
     //Initialisierung der setter Funktionen
     pidController.set_kp = set_kp;
     pidController.set_ki = set_ki;
     pidController.set_kd = set_kd;
+    pidController.set_setPoint = set_setPoint;
 
     return pidController;
 }

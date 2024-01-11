@@ -82,6 +82,10 @@ PcSendHandler pcSender;
 UartDataObject uartDataPc;
 UartDataObject uartDataSensorExtruder;
 UartDataObject uartDataSensorBack;
+
+// HMI
+Hmi hmi;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -139,24 +143,16 @@ int main(void)
   MX_SPI1_Init();
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
-  int Blob = 0;
-  float Soll = 1.75;
-  bool Reg_aktiv = 0;
-
-	char buf[20];
-	sprintf(buf, "Soll: %.2f mm", Soll);
-
-	ILI9341_Init(&hspi1, LCD_CS_GPIO_Port, LCD_CS_Pin, LCD_DC_GPIO_Port, LCD_DC_Pin, LCD_RST_GPIO_Port, LCD_RST_Pin);
-	ILI9341_setRotation(2);
-	ILI9341_Fill(COLOR_NAVY);
-
-	TSC2046_Begin(&hspi2, TS_CS_GPIO_Port, TS_CS_Pin);
+  ILI9341_Init(&hspi1, LCD_CS_GPIO_Port, LCD_CS_Pin, LCD_DC_GPIO_Port, LCD_DC_Pin, LCD_RST_GPIO_Port, LCD_RST_Pin);
+  ILI9341_setRotation(2);
+  ILI9341_Fill(COLOR_NAVY);
+  TSC2046_Begin(&hspi2, TS_CS_GPIO_Port, TS_CS_Pin);
 
 
-HMI_init(Soll);
+  HMI_init(&stateMachine, &sensorExtruder, &sensorBack, &pidController);
   HAL_TIM_PWM_Start(&htim1, 0);
   stateMachine = initStateMachine(&motor);
-  pidController = pid_init(1.0, 0.0,0.0);
+  pidController = pid_init(1.0, 0.0,0.0, 1.75);
   uartDataPc 		     = createUartDataObject();
   uartDataSensorExtruder = createUartDataObject();
   uartDataSensorBack	 = createUartDataObject();
@@ -176,7 +172,7 @@ HMI_init(Soll);
 
     /* USER CODE BEGIN 3 */
 	  myTS_Handle = TSC2046_GetTouchData();
-	  HMI_getTouch(myTS_Handle, Soll, Reg_aktiv, Blob);
+	  HMI_getTouch(&hmi, myTS_Handle, &stateMachine, &pidController);
 
 
 	  if(uartDataPc.data.messageComplete){

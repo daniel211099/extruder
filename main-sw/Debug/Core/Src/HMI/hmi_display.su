@@ -1,2 +1,2 @@
-../Core/Src/HMI/hmi_display.c:22:6:HMI_init	48	static
-../Core/Src/HMI/hmi_display.c:50:6:HMI_getTouch	112	static
+../Core/Src/HMI/hmi_display.c:22:5:HMI_init	72	static
+../Core/Src/HMI/hmi_display.c:56:6:HMI_getTouch	104	static

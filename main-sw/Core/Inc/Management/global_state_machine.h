@@ -23,6 +23,7 @@ typedef enum {
 typedef struct {
     State currentState;
     Motor* motor;
+    int blobDetected;
 }StateMachineInformation;
 
 // Definition der State Machine "Klasse"
@@ -33,6 +34,8 @@ struct StateMachine {
     void  (*init)		(struct StateMachine *machine);
     void  (*changeState)(struct StateMachine *machine, State newState);
     State (*getState)	(const struct StateMachine *machine);
+    int  (*getBlobDetected) (const struct StateMachine *machine);
+    void (*setBlobDetected) (struct StateMachine *machine, int blobDetected);
 };
 
 StateMachine initStateMachine(Motor* motor);

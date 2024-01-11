@@ -1,3 +1,5 @@
 ../Core/Src/Management/global_state_machine.c:11:13:changeState	5
 ../Core/Src/Management/global_state_machine.c:29:14:getState	1
-../Core/Src/Management/global_state_machine.c:34:14:initStateMachine	1
+../Core/Src/Management/global_state_machine.c:32:6:setBlobDetected	2
+../Core/Src/Management/global_state_machine.c:38:12:getBlobDetected	1
+../Core/Src/Management/global_state_machine.c:45:14:initStateMachine	1

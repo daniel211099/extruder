@@ -29,6 +29,17 @@ static void changeState(StateMachine *machine, State newState) {
 static State getState(const StateMachine *machine) {
     return machine->info.currentState;
 }
+void setBlobDetected(struct StateMachine *machine, int blobDetected){
+	machine->info.blobDetected = blobDetected;
+	if(blobDetected == 1){
+		machine->info.currentState = STATE_IDLE;
+	}
+}
+static int getBlobDetected(const struct StateMachine *machine){
+	return machine->info.blobDetected;
+}
+
+
 
 // Initialization function for the State Machine
 StateMachine initStateMachine(Motor* motor) {
@@ -38,8 +49,13 @@ StateMachine initStateMachine(Motor* motor) {
 
     machine.changeState = changeState;
     machine.getState = getState;
+    machine.setBlobDetected = setBlobDetected;
+    machine.getBlobDetected = getBlobDetected;
 
     // Set initial state and initialize motor
     machine.info.currentState = STATE_IDLE;
+    machine.info.blobDetected = 0;
+
+
     return machine;
 }
