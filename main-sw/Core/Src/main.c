@@ -32,8 +32,8 @@
 #include <SensorActuators/motor.h>
 #include <SensorActuators/sensor.h>
 #include <Regelung/pid_controller.h>
-#include "HMI/MY_ILI9341.h"
-#include "HMI/TSC2046.h"
+//#include "HMI/MY_ILI9341.h"
+//#include "HMI/TSC2046.h"
 #include "HMI/hmi_display.h"
 /* USER CODE END Includes */
 
@@ -175,6 +175,9 @@ HMI_init(Soll);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  myTS_Handle = TSC2046_GetTouchData();
+	  HMI_getTouch(myTS_Handle, Soll, Reg_aktiv, Blob);
+
 
 	  if(uartDataPc.data.messageComplete){
 		processPcInterfaceMessage(&pcReciever, uartDataPc.data.receivedData, uartDataPc.data.dataIndex);
