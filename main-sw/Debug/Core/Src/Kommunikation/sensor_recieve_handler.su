@@ -1,4 +1,4 @@
 ../Core/Src/Kommunikation/sensor_recieve_handler.c:23:22:createSensorReceiveHandler	48	static
 ../Core/Src/Kommunikation/sensor_recieve_handler.c:38:6:handleDiamRecieved	32	static
-../Core/Src/Kommunikation/sensor_recieve_handler.c:50:7:getFloatFromMessage	64	dynamic
-../Core/Src/Kommunikation/sensor_recieve_handler.c:75:6:processSensorInterfaceMessage	24	static
+../Core/Src/Kommunikation/sensor_recieve_handler.c:51:7:getFloatFromMessage	64	dynamic
+../Core/Src/Kommunikation/sensor_recieve_handler.c:76:6:processSensorInterfaceMessage	24	static

@@ -46,6 +46,7 @@ void handleDiamRecieved(uint8_t uartNr, const char* value){
 		float diam = getFloatFromMessage(value);
 		gHandler.sensorBack->setDiameter(gHandler.sensorBack,diam);
 	}
+	HMI_updateDisplaySensor(&gHandler.sensorExtruder, &gHandler.sensorBack);
 }
 float getFloatFromMessage(const char* value) {
     int length = strlen(value);

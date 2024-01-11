@@ -20,6 +20,7 @@
 #include "SensorActuators/sensor.h"
 #include "Regelung/pid_controller.h"
 
+
 typedef struct Hmi Hmi; // Vorwärtsdeklaration
 
 typedef struct {
@@ -36,5 +37,7 @@ struct Hmi{
 Hmi HMI_init(StateMachine* stateMachine, Sensor* sensorExtruder, Sensor* sensorBack, PIDController *pidController);
 
 void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, StateMachine *state, PIDController *pidController);
+
+void HMI_updateDisplaySensor(Sensor* sensorExtruder, Sensor* sensorBack);
 
 #endif /* INC_HMI_HMI_DISPLAY_H_ */
