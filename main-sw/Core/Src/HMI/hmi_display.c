@@ -30,6 +30,7 @@ Hmi HMI_init(StateMachine* stateMachine, Sensor* sensorExtruder, Sensor* sensorB
 	ILI9341_Fill(COLOR_WHITE);
 
 	ILI9341_Fill_Rect(5, 10, 315, 50, COLOR_ORANGE);
+	float value = sensorExtruder->getDiameter(sensorExtruder);
 	ILI9341_printText("Durchmesser: 1.75mm", 50, 25, COLOR_WHITE, COLOR_ORANGE, 2);
 
 	char buf[20];
