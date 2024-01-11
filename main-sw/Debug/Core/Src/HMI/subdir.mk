@@ -5,14 +5,20 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/HMI/MY_ILI9341.c \
+../Core/Src/HMI/TSC2046.c \
 ../Core/Src/HMI/hmi_display.c \
 ../Core/Src/HMI/signallight_control.c 
 
 OBJS += \
+./Core/Src/HMI/MY_ILI9341.o \
+./Core/Src/HMI/TSC2046.o \
 ./Core/Src/HMI/hmi_display.o \
 ./Core/Src/HMI/signallight_control.o 
 
 C_DEPS += \
+./Core/Src/HMI/MY_ILI9341.d \
+./Core/Src/HMI/TSC2046.d \
 ./Core/Src/HMI/hmi_display.d \
 ./Core/Src/HMI/signallight_control.d 
 
@@ -24,7 +30,7 @@ Core/Src/HMI/%.o Core/Src/HMI/%.su Core/Src/HMI/%.cyclo: ../Core/Src/HMI/%.c Cor
 clean: clean-Core-2f-Src-2f-HMI
 
 clean-Core-2f-Src-2f-HMI:
-	-$(RM) ./Core/Src/HMI/hmi_display.cyclo ./Core/Src/HMI/hmi_display.d ./Core/Src/HMI/hmi_display.o ./Core/Src/HMI/hmi_display.su ./Core/Src/HMI/signallight_control.cyclo ./Core/Src/HMI/signallight_control.d ./Core/Src/HMI/signallight_control.o ./Core/Src/HMI/signallight_control.su
+	-$(RM) ./Core/Src/HMI/MY_ILI9341.cyclo ./Core/Src/HMI/MY_ILI9341.d ./Core/Src/HMI/MY_ILI9341.o ./Core/Src/HMI/MY_ILI9341.su ./Core/Src/HMI/TSC2046.cyclo ./Core/Src/HMI/TSC2046.d ./Core/Src/HMI/TSC2046.o ./Core/Src/HMI/TSC2046.su ./Core/Src/HMI/hmi_display.cyclo ./Core/Src/HMI/hmi_display.d ./Core/Src/HMI/hmi_display.o ./Core/Src/HMI/hmi_display.su ./Core/Src/HMI/signallight_control.cyclo ./Core/Src/HMI/signallight_control.d ./Core/Src/HMI/signallight_control.o ./Core/Src/HMI/signallight_control.su
 
 .PHONY: clean-Core-2f-Src-2f-HMI
 

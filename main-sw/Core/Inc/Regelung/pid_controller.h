@@ -28,18 +28,20 @@ struct PIDController{
 	float	(*get_kp)(const PIDController *pid);
 	float	(*get_ki)(const PIDController *pid);
 	float	(*get_kd)(const PIDController *pid);
+	float   (*get_setPoint)(const PIDController *pid);
 
 	// Setter Methoden
 	void	(*set_kp)(PIDController *pid, float kp);
 	void	(*set_ki)(PIDController *pid, float ki);
 	void	(*set_kd)(PIDController *pid, float kd);
+	void	(*set_setPoint)(PIDController *pid, float kd);
 
 	// Funktionen für die PID-Regelung
 
 	float  (*pid_update)(PIDController *pid, float current_value);
 };
 
-PIDController pid_init(float kp, float ki, float kd);
+PIDController pid_init(float kp, float ki, float kd, float setPoint);
 
 
 #endif /* INC_REGELUNG_PID_CONTROLLER_H_ */

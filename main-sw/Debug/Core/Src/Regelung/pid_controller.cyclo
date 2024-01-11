@@ -4,5 +4,7 @@
 ../Core/Src/Regelung/pid_controller.c:21:7:get_ki	1
 ../Core/Src/Regelung/pid_controller.c:25:6:set_kd	1
 ../Core/Src/Regelung/pid_controller.c:29:7:get_kd	1
-../Core/Src/Regelung/pid_controller.c:33:15:pid_init	1
-../Core/Src/Regelung/pid_controller.c:55:7:pid_update	1
+../Core/Src/Regelung/pid_controller.c:32:6:set_setPoint	1
+../Core/Src/Regelung/pid_controller.c:36:7:get_setPoint	1
+../Core/Src/Regelung/pid_controller.c:40:15:pid_init	1
+../Core/Src/Regelung/pid_controller.c:65:7:pid_update	1
