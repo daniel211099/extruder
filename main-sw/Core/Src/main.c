@@ -35,6 +35,7 @@
 //#include "HMI/MY_ILI9341.h"
 //#include "HMI/TSC2046.h"
 #include "HMI/hmi_display.h"
+#include <HMI/signallight_control.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -164,6 +165,7 @@ int main(void)
   HAL_UART_Receive_IT(&huart2, (uint8_t *)uartDataPc.data.receivedData, 1);
 
   hmi = HMI_init(&stateMachine, &sensorExtruder, &sensorBack, &pidController);
+  //TODO A: HMI_SignalLigth(&sensorExtruder);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -175,6 +177,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  myTS_Handle = TSC2046_GetTouchData();
 	  HMI_getTouch(&hmi, myTS_Handle, &stateMachine, &pidController);
+	  //TODO A: HMI_SetSignalLigth(&stateMachine);
 
 
 	  if(uartDataPc.data.messageComplete){

@@ -83,6 +83,11 @@ void Error_Handler(void);
 #define TS_CS_GPIO_Port GPIOB
 #define LCD_CS_Pin GPIO_PIN_6
 #define LCD_CS_GPIO_Port GPIOB
+//TODO A: Chose Pins for Ligth in main.h:
+//#define Signallight_RED GPIO_PIN_
+//#define Signallight_YELLOW GPIO_PIN_
+//#define Signallight_GREEN GPIO_PIN_
+
 
 /* USER CODE BEGIN Private defines */
 
