@@ -165,7 +165,7 @@ int main(void)
   HAL_UART_Receive_IT(&huart2, (uint8_t *)uartDataPc.data.receivedData, 1);
 
   hmi = HMI_init(&stateMachine, &sensorExtruder, &sensorBack, &pidController);
-  //TODO A: HMI_SignalLigth(&sensorExtruder);
+  HMI_SignalLigth(&sensorExtruder);//SignalLeuchte
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -177,7 +177,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  myTS_Handle = TSC2046_GetTouchData();
 	  HMI_getTouch(&hmi, myTS_Handle, &stateMachine, &pidController);
-	  //TODO A: HMI_SetSignalLigth(&stateMachine);
+	  HMI_SetSignalLigth(&stateMachine); //SignalLeuchte
 
 
 	  if(uartDataPc.data.messageComplete){
