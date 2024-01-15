@@ -38,6 +38,6 @@ Hmi HMI_init(StateMachine* stateMachine, Sensor* sensorExtruder, Sensor* sensorB
 
 void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, StateMachine *state, PIDController *pidController);
 
-void HMI_updateDisplaySensor(Sensor* sensorExtruder, Sensor* sensorBack);
+void HMI_updateDisplaySensor(float extruder, float back);
 
 #endif /* INC_HMI_HMI_DISPLAY_H_ */

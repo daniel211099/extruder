@@ -2,7 +2,7 @@ Core/Src/Kommunikation/sensor_recieve_handler.o: \
  ../Core/Src/Kommunikation/sensor_recieve_handler.c \
  ../Core/Inc/kommunikation/sensor_recieve_handler.h \
  ../Core/Inc/SensorActuators/sensor.h \
- ../Core/Inc/kommunikation/uart_processor.h \
+ ../Core/Inc/kommunikation/uart_processor.h ../Core/Inc/HMI/hmi_display.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -31,10 +31,15 @@ Core/Src/Kommunikation/sensor_recieve_handler.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
+ ../Core/Inc/HMI/MY_ILI9341.h ../Core/Inc/HMI/TSC2046.h \
+ ../Core/Inc/main.h ../Core/Inc/Management/global_state_machine.h \
+ ../Core/Inc/SensorActuators/motor.h \
+ ../Core/Inc/Regelung/pid_controller.h
 ../Core/Inc/kommunikation/sensor_recieve_handler.h:
 ../Core/Inc/SensorActuators/sensor.h:
 ../Core/Inc/kommunikation/uart_processor.h:
+../Core/Inc/HMI/hmi_display.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -64,3 +69,9 @@ Core/Src/Kommunikation/sensor_recieve_handler.o: \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/HMI/MY_ILI9341.h:
+../Core/Inc/HMI/TSC2046.h:
+../Core/Inc/main.h:
+../Core/Inc/Management/global_state_machine.h:
+../Core/Inc/SensorActuators/motor.h:
+../Core/Inc/Regelung/pid_controller.h:

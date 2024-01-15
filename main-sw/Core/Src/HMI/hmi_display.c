@@ -156,20 +156,24 @@ void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, StateMachine *state, 
 
 }
 
-void HMI_updateDisplaySensor(Sensor* sensorExtruder, Sensor* sensorBack)
+void HMI_updateDisplaySensor(float extruder, float back)
 {
-	float value1 = sensorExtruder->getDiameter(sensorExtruder);
-	char buf1[20];
-	sprintf(buf1, "Sensor1: %.2f mm", value1);
+	if(extruder >= 0 && extruder <5){
+		//float value1 = sensorExtruder->getDiameter(sensorExtruder);
+		char buf1[20];
+		sprintf(buf1, "Sensor Ext: %.2f mm", extruder);
 
 
-	ILI9341_Fill_Rect(5, 10, 315, 50, COLOR_ORANGE);
-	ILI9341_printText(buf1, 50, 25, COLOR_WHITE, COLOR_ORANGE, 2);
+		ILI9341_Fill_Rect(5, 10, 315, 50, COLOR_ORANGE);
+		ILI9341_printText(buf1, 50, 25, COLOR_WHITE, COLOR_ORANGE, 2);
+	}
+	if (back >= 0 && back <5){
+		//float value2 = sensorBack->getDiameter(sensorBack);
+		char buf2[20];
+		sprintf(buf2, "Sensor B: %.2f mm", back);
 
-	float value2 = sensorBack->getDiameter(sensorBack);
-	char buf2[20];
-	sprintf(buf2, "Sensor2: %.2f mm", value2);
+		ILI9341_Fill_Rect(5, 60, 315, 100, COLOR_ORANGE);
+		ILI9341_printText(buf2, 50, 75, COLOR_WHITE, COLOR_ORANGE, 2);
+	}
 
-	ILI9341_Fill_Rect(5, 60, 315, 100, COLOR_ORANGE);
-	ILI9341_printText(buf2, 50, 75, COLOR_WHITE, COLOR_ORANGE, 2);
 }
