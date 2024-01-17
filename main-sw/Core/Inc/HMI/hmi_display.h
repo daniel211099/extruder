@@ -37,7 +37,7 @@ Hmi HMI_init(StateMachine* stateMachine, Sensor* sensorExtruder, Sensor* sensorB
 
 void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle,Motor *motor, PIDController *pidController);
 
-void HMI_updateDisplaySensor(float extruder, float back);
+void HMI_updateDisplaySensor(Hmi *hmi, float extruder, float back);
 
 int HMI_checkBlob(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle,int updateHMI);
 

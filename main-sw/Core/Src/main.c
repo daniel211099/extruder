@@ -161,7 +161,7 @@ int main(void)
   uartDataSensorBack	 = createUartDataObject();
   pcSender 		= createPcSendHandler(10);
   pcReciever 	= createPcReceiveHandler(&stateMachine,&pidController, &motor, &pcSender, &huart2);
-  sensorReciever = createSensorReceiveHandler(&sensorExtruder, &sensorBack);
+  sensorReciever = createSensorReceiveHandler(&sensorExtruder, &sensorBack, &hmi);
   HAL_UART_Receive_IT(&huart1, (uint8_t *)uartDataSensorExtruder.data.receivedData, 1);
   HAL_UART_Receive_IT(&huart6, (uint8_t *)uartDataSensorBack.data.receivedData, 1);
   HAL_UART_Receive_IT(&huart2, (uint8_t *)uartDataPc.data.receivedData, 1);

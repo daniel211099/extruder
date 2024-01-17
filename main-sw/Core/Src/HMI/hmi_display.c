@@ -174,8 +174,11 @@ void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle,Motor *motor, PIDContr
 
 }
 
-void HMI_updateDisplaySensor(float extruder, float back)
+void HMI_updateDisplaySensor(Hmi *hmi, float extruder, float back)
 {
+	if(hmi->HmiInformation.stateMachine->getBlobDetected(hmi->HmiInformation.stateMachine) == 1){
+		return;
+	}
 	if(extruder >= 0 && extruder <5){
 		//float value1 = sensorExtruder->getDiameter(sensorExtruder);
 		char buf1[20];

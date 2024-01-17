@@ -6,6 +6,7 @@
  */
 #include "kommunikation/sensor_recieve_handler.h"
 #include <kommunikation/uart_processor.h>
+#include "HMI/hmi_display.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,11 +22,13 @@ CommandEntry sensor_interface_dictionary[] = {
 
 // Konstruktor
 SensorReceiveHandler createSensorReceiveHandler(Sensor* sensorExtruder,
-												Sensor* sensorBack)
+												Sensor* sensorBack,
+												Hmi* hmi)
 {
 	SensorReceiveHandler handler;
     handler.sensorExtruder = sensorExtruder;
     handler.sensorBack = sensorBack;
+    handler.hmi = hmi;
 
     // Zuweisung der globalen Variable
     gHandler = handler;
@@ -48,7 +51,7 @@ void handleDiamRecieved(uint8_t uartNr, const char* value){
 	}
 	float extruder  = gHandler.sensorExtruder->getDiameter(gHandler.sensorExtruder);
 	float backValue = gHandler.sensorBack->getDiameter(gHandler.sensorBack);
-	HMI_updateDisplaySensor(extruder,backValue);
+	HMI_updateDisplaySensor(gHandler.hmi, extruder,backValue);
 }
 float getFloatFromMessage(const char* value) {
     int length = strlen(value);

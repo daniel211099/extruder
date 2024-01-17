@@ -17,12 +17,14 @@
 typedef struct {
     Sensor* sensorExtruder;  // Sensor am Extruder
     Sensor* sensorBack;
+    Hmi* hmi;
     UartProcessor uartProcessor;
 } SensorReceiveHandler;
 
 // Konstruktor
 SensorReceiveHandler createSensorReceiveHandler(Sensor* sensorExtruder,
-												Sensor* sensorBack);
+												Sensor* sensorBack,
+												Hmi* hmi);
 
 // Methoden
 void handleDiamRecieved(uint8_t uartNr, const char* value);
