@@ -71,6 +71,8 @@ void Error_Handler(void);
 #define USART_RX_GPIO_Port GPIOA
 #define LED_Pin GPIO_PIN_5
 #define LED_GPIO_Port GPIOA
+#define fault_Pin GPIO_PIN_5
+#define fault_GPIO_Port GPIOC
 #define LCD_RST_Pin GPIO_PIN_7
 #define LCD_RST_GPIO_Port GPIOC
 #define LCD_DC_Pin GPIO_PIN_9
