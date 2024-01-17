@@ -40,4 +40,6 @@ void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, StateMachine *state, 
 
 void HMI_updateDisplaySensor(float extruder, float back);
 
+int HMI_checkBlob(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, PIDController *pidController, int updateHMI);
+
 #endif /* INC_HMI_HMI_DISPLAY_H_ */

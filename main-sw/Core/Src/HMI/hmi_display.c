@@ -55,6 +55,53 @@ Hmi HMI_init(StateMachine* stateMachine, Sensor* sensorExtruder, Sensor* sensorB
 	return hmi;
 }
 
+int HMI_checkBlob(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, PIDController *pidController, int updateHMI){
+	if(hmi->HmiInformation.stateMachine->getBlobDetected(hmi->HmiInformation.stateMachine)==1)
+	{
+		if(updateHMI ==1){
+		ILI9341_Fill(COLOR_RED);
+		ILI9341_Fill_Rect(110, 70, 210, 170, COLOR_WHITE);
+		ILI9341_printText("BLOB erkannt!", 90, 20, COLOR_WHITE, COLOR_RED, 2);
+		ILI9341_printText("OK", 145, 110, COLOR_BLACK, COLOR_WHITE, 3);
+		updateHMI = 0;
+		}
+		if(myTS_Handle.isPressed)
+		{
+			if(myTS_Handle.X >=110 && myTS_Handle.X<=210 && myTS_Handle.Y>=70 && myTS_Handle.Y<=140)
+						{
+						hmi->HmiInformation.stateMachine->setBlobDetected(hmi->HmiInformation.stateMachine,0);
+						ILI9341_Fill(COLOR_WHITE);
+
+						ILI9341_Fill_Rect(5, 10, 315, 50, COLOR_ORANGE);
+						ILI9341_printText("Sensor1: 0 mm", 50, 25, COLOR_WHITE, COLOR_ORANGE, 2);
+
+						ILI9341_Fill_Rect(5, 60, 315, 100, COLOR_ORANGE);
+						ILI9341_printText("Sensor2 : 0 mm", 50, 75, COLOR_WHITE, COLOR_ORANGE, 2);
+
+						char buf[20];
+						sprintf(buf, "Soll: %.2f mm", pidController->get_setPoint(pidController));
+						ILI9341_Fill_Rect(5, 110, 315, 150, COLOR_BLUE);
+						ILI9341_printText(buf, 50, 120, COLOR_WHITE, COLOR_BLUE, 2);
+
+						ILI9341_Fill_Rect(30, 160, 70, 200, COLOR_BLUE);
+						ILI9341_printText("UP", 45,  180, COLOR_WHITE, COLOR_BLUE, 1);
+
+						ILI9341_Fill_Rect(80, 160, 120, 200, COLOR_BLUE);
+						ILI9341_printText("DOWN", 90,  180, COLOR_WHITE, COLOR_BLUE, 1);
+
+						ILI9341_printText("REGELUNG", 195,  170, COLOR_BLACK, COLOR_WHITE, 2);
+
+
+						ILI9341_Fill_Rect(180, 190, 300, 230, COLOR_RED);
+						ILI9341_printText("IDLE", 230,  205, COLOR_WHITE, COLOR_RED, 2);
+						updateHMI = 1;
+						}
+		}
+
+	}
+	return updateHMI;
+}
+
 
 void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, StateMachine *state, PIDController *pidController)
 {
@@ -113,44 +160,6 @@ void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, StateMachine *state, 
   				ILI9341_printText("Idle", 230,  205, COLOR_WHITE, COLOR_RED, 2);
 			}
 		}
-
-		if(hmi->HmiInformation.stateMachine->getBlobDetected(hmi->HmiInformation.stateMachine)==1)
-		{
-			ILI9341_Fill(COLOR_RED);
-			ILI9341_Fill_Rect(110, 70, 210, 170, COLOR_WHITE);
-			ILI9341_printText("BLOB erkannt!", 90, 20, COLOR_WHITE, COLOR_RED, 2);
-			ILI9341_printText("OK", 145, 110, COLOR_BLACK, COLOR_WHITE, 3);
-			if(myTS_Handle.X >=110 && myTS_Handle.X<=210 && myTS_Handle.Y>=70 && myTS_Handle.Y<=140)
-				{
-				hmi->HmiInformation.stateMachine->setBlobDetected(hmi->HmiInformation.stateMachine,0);
-				ILI9341_Fill(COLOR_WHITE);
-
-				ILI9341_Fill_Rect(5, 10, 315, 50, COLOR_ORANGE);
-				ILI9341_printText("Sensor1: 0 mm", 50, 25, COLOR_WHITE, COLOR_ORANGE, 2);
-
-				ILI9341_Fill_Rect(5, 60, 315, 100, COLOR_ORANGE);
-				ILI9341_printText("Sensor2 : 0 mm", 50, 75, COLOR_WHITE, COLOR_ORANGE, 2);
-
-				char buf[20];
-				sprintf(buf, "Soll: %.2f mm", pidController->get_setPoint(pidController));
-				ILI9341_Fill_Rect(5, 110, 315, 150, COLOR_BLUE);
-				ILI9341_printText(buf, 50, 120, COLOR_WHITE, COLOR_BLUE, 2);
-
-				ILI9341_Fill_Rect(30, 160, 70, 200, COLOR_BLUE);
-				ILI9341_printText("UP", 45,  180, COLOR_WHITE, COLOR_BLUE, 1);
-
-				ILI9341_Fill_Rect(80, 160, 120, 200, COLOR_BLUE);
-				ILI9341_printText("DOWN", 90,  180, COLOR_WHITE, COLOR_BLUE, 1);
-
-				ILI9341_printText("REGELUNG", 195,  170, COLOR_BLACK, COLOR_WHITE, 2);
-
-
-				ILI9341_Fill_Rect(180, 190, 300, 230, COLOR_RED);
-				ILI9341_printText("IDLE", 230,  205, COLOR_WHITE, COLOR_RED, 2);
-				}
-		}
-
-
 	}
 
 
