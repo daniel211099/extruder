@@ -122,7 +122,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  sensorExtruder = initSensor(1.57, 2);
+  sensorExtruder = initSensor(1.57, 1);
   sensorBack 	 = initSensor(2.56, 6);
   motor 		 = initMotor(&htim1);
   /* USER CODE END Init */
@@ -570,7 +570,7 @@ void processUartData(UART_HandleTypeDef *huart, UartDataObject *uartData) {
     // Fehlerhafte Startbyte, Nachricht ignorieren
     uartData->data.dataIndex = 0;
     HAL_UART_Receive_IT(huart, &uartData->data.receivedData[0], 1);
-  } else if (uartData->data.receivedData[uartData->data.dataIndex] == '\r') {
+  } else if (uartData->data.receivedData[uartData->data.dataIndex] == '\r' ) {
     uartData->data.receivedData[uartData->data.dataIndex + 1] = '\0';  // Null-Terminierung hinzufügen
     uartData->data.messageComplete = 1;
   } else if (uartData->data.dataIndex >= sizeof(uartData->data.receivedData) - 1) {
