@@ -91,12 +91,12 @@ Hmi hmi;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_USART2_UART_Init(void);
-static void MX_USART1_UART_Init(void);
-static void MX_USART6_UART_Init(void);
-static void MX_TIM1_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_SPI2_Init(void);
+static void MX_TIM1_Init(void);
+static void MX_USART1_UART_Init(void);
+static void MX_USART2_UART_Init(void);
+static void MX_USART6_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -136,12 +136,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART2_UART_Init();
-  MX_USART1_UART_Init();
-  MX_USART6_UART_Init();
-  MX_TIM1_Init();
   MX_SPI1_Init();
   MX_SPI2_Init();
+  MX_TIM1_Init();
+  MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
+  MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
   ILI9341_Init(&hspi1, LCD_CS_GPIO_Port, LCD_CS_Pin, LCD_DC_GPIO_Port, LCD_DC_Pin, LCD_RST_GPIO_Port, LCD_RST_Pin);
   ILI9341_setRotation(2);
@@ -175,7 +175,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  myTS_Handle = TSC2046_GetTouchData();
 	  HMI_getTouch(&hmi, myTS_Handle, &stateMachine, &pidController);
-
+	  
 
 	  if(uartDataPc.data.messageComplete){
 		processPcInterfaceMessage(&pcReciever, uartDataPc.data.receivedData, uartDataPc.data.dataIndex);
@@ -198,6 +198,14 @@ int main(void)
 		uartDataSensorBack.data.messageComplete = 0;
 		uartDataSensorBack.data.dataIndex = 0;
 		HAL_UART_Receive_IT(&huart6, (uint8_t *)uartDataSensorBack.data.receivedData, 1);
+	  }
+
+	  if (sensorBack.getDiameter(&sensorBack) >= 2.5){
+		  HAL_GPIO_WritePin(GPIOC, fault_Pin, GPIO_PIN_SET);
+	  }
+
+	  if (sensorBack.getDiameter(&sensorBack) <= 2){
+		  HAL_GPIO_WritePin(GPIOC, fault_Pin, GPIO_PIN_RESET);
 	  }
   }
   /* USER CODE END 3 */
@@ -520,7 +528,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, LED_Pin|LCD_DC_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LCD_RST_GPIO_Port, LCD_RST_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, fault_Pin|LCD_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, TS_CS_Pin|LCD_CS_Pin, GPIO_PIN_RESET);
@@ -538,12 +546,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : LCD_RST_Pin */
-  GPIO_InitStruct.Pin = LCD_RST_Pin;
+  /*Configure GPIO pins : fault_Pin LCD_RST_Pin */
+  GPIO_InitStruct.Pin = fault_Pin|LCD_RST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LCD_RST_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : TS_CS_Pin LCD_CS_Pin */
   GPIO_InitStruct.Pin = TS_CS_Pin|LCD_CS_Pin;

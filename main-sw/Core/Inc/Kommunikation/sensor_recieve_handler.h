@@ -10,7 +10,6 @@
 
 #include <SensorActuators/sensor.h>
 #include "kommunikation/uart_processor.h"
-#include "HMI/hmi_display.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_uart.h"
 
