@@ -12,12 +12,14 @@ static void changeState(StateMachine *machine, State newState) {
     switch (newState) {
         case STATE_IDLE:
             machine->info.motor->setSpeed(machine->info.motor, 0);
+            HAL_TIM_Base_Stop(machine->info.timer);
             break;
         case STATE_MANUAL_CONTROL:
-            // TODO: Logik für manuellen Betrieb implementieren
+            HAL_TIM_Base_Stop(machine->info.timer);
             break;
         case STATE_AUTOMATIC_MODE:
-            // TODO: Logik für Regelung implementieren
+        	machine->info.motor->setSpeed(machine->info.motor, 25);
+        	HAL_TIM_Base_Start_IT(machine->info.timer);
             break;
         default:
             // Handle unknown state
@@ -42,10 +44,11 @@ static int getBlobDetected(const struct StateMachine *machine){
 
 
 // Initialization function for the State Machine
-StateMachine initStateMachine(Motor* motor) {
+StateMachine initStateMachine(Motor* motor, TIM_HandleTypeDef* timer) {
     StateMachine machine;
 
     machine.info.motor = motor;
+    machine.info.timer = timer;
 
     machine.changeState = changeState;
     machine.getState = getState;

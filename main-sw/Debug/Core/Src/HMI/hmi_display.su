@@ -1,4 +1,5 @@
 ../Core/Src/HMI/hmi_display.c:22:5:HMI_init	72	static
 ../Core/Src/HMI/hmi_display.c:58:5:HMI_checkBlob	56	static
-../Core/Src/HMI/hmi_display.c:106:6:HMI_getTouch	80	static
-../Core/Src/HMI/hmi_display.c:168:6:HMI_updateDisplaySensor	64	static
+../Core/Src/HMI/hmi_display.c:105:6:HMI_update_soll	56	static
+../Core/Src/HMI/hmi_display.c:139:6:HMI_getTouch	32	static
+../Core/Src/HMI/hmi_display.c:177:6:HMI_updateDisplaySensor	64	static

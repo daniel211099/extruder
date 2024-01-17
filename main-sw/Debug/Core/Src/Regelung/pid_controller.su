@@ -6,5 +6,5 @@
 ../Core/Src/Regelung/pid_controller.c:29:7:get_kd	16	static
 ../Core/Src/Regelung/pid_controller.c:32:6:set_setPoint	16	static
 ../Core/Src/Regelung/pid_controller.c:36:7:get_setPoint	16	static
-../Core/Src/Regelung/pid_controller.c:40:15:pid_init	104	static
-../Core/Src/Regelung/pid_controller.c:65:7:pid_update	40	static
+../Core/Src/Regelung/pid_controller.c:39:7:pid_update	32	static
+../Core/Src/Regelung/pid_controller.c:52:15:pid_init	104	static

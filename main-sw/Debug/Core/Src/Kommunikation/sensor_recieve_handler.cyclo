@@ -1,4 +1,4 @@
 ../Core/Src/Kommunikation/sensor_recieve_handler.c:23:22:createSensorReceiveHandler	1
 ../Core/Src/Kommunikation/sensor_recieve_handler.c:38:6:handleDiamRecieved	3
-../Core/Src/Kommunikation/sensor_recieve_handler.c:55:7:getFloatFromMessage	8
-../Core/Src/Kommunikation/sensor_recieve_handler.c:80:6:processSensorInterfaceMessage	1
+../Core/Src/Kommunikation/sensor_recieve_handler.c:53:7:getFloatFromMessage	8
+../Core/Src/Kommunikation/sensor_recieve_handler.c:78:6:processSensorInterfaceMessage	1

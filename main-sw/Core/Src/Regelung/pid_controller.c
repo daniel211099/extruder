@@ -36,6 +36,18 @@ void set_setPoint(PIDController *pid, float setPoint) {
 float get_setPoint(const PIDController *pid) {
     return pid->data.setpoint;
 }
+float pid_update(PIDController *pid, float current_value) {
+    // Berechne den Fehler
+    float error = pid->data.setpoint - current_value;
+
+    // Berechne den Proportionalanteil
+    float p_term = pid->data.kp * error;
+
+    // Summe der Anteile für die Ausgabe
+    float output = p_term;
+
+    return output;
+}
 
 PIDController pid_init(float kp, float ki, float kd, float setpoint) {
     PIDController pidController;
@@ -59,26 +71,8 @@ PIDController pid_init(float kp, float ki, float kd, float setpoint) {
     pidController.set_kd = set_kd;
     pidController.set_setPoint = set_setPoint;
 
+    pidController.pid_update = pid_update;
+
     return pidController;
 }
 
-float pid_update(PIDController *pid, float current_value) {
-    // Berechne den Fehler
-    float error = pid->data.setpoint - current_value;
-
-    // Berechne den Proportionalanteil
-    float p_term = pid->data.kp * error;
-
-    // Berechne den Integralanteil
-    pid->data.integral += error;
-    float i_term = pid->data.ki * pid->data.integral;
-
-    // Berechne den Derivativanteil
-    float d_term = pid->data.kd * (error - pid->data.last_error);
-    pid->data.last_error = error;
-
-    // Summe der Anteile für die Ausgabe
-    float output = p_term + i_term + d_term;
-
-    return output;
-}

@@ -19,7 +19,7 @@
 #include <HMI/hmi_display.h>
 
 
-Hmi HMI_init(StateMachine* stateMachine, Sensor* sensorExtruder, Sensor* sensorBack, PIDController *pidController)
+Hmi HMI_init(StateMachine* stateMachine, Sensor* sensorExtruder, Sensor* sensorBack)
 {
 	Hmi hmi;
 	hmi.HmiInformation.stateMachine = stateMachine;
@@ -36,7 +36,7 @@ Hmi HMI_init(StateMachine* stateMachine, Sensor* sensorExtruder, Sensor* sensorB
 	ILI9341_printText("Sensor2 : 0 mm", 50, 75, COLOR_WHITE, COLOR_ORANGE, 2);
 
 	char buf[20];
-	sprintf(buf, "Soll: %.2f mm", pidController->get_setPoint(pidController));
+	sprintf(buf, "Ruhemodus");
 
 	ILI9341_Fill_Rect(5, 110, 315, 150, COLOR_BLUE);
 	ILI9341_printText(buf, 50, 120, COLOR_WHITE, COLOR_BLUE, 2);
@@ -55,7 +55,7 @@ Hmi HMI_init(StateMachine* stateMachine, Sensor* sensorExtruder, Sensor* sensorB
 	return hmi;
 }
 
-int HMI_checkBlob(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, PIDController *pidController, int updateHMI){
+int HMI_checkBlob(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle,int updateHMI){
 	if(hmi->HmiInformation.stateMachine->getBlobDetected(hmi->HmiInformation.stateMachine)==1)
 	{
 		if(updateHMI ==1){
@@ -79,7 +79,7 @@ int HMI_checkBlob(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, PIDController *pidCon
 						ILI9341_printText("Sensor2 : 0 mm", 50, 75, COLOR_WHITE, COLOR_ORANGE, 2);
 
 						char buf[20];
-						sprintf(buf, "Soll: %.2f mm", pidController->get_setPoint(pidController));
+						sprintf(buf, "Ruhemodus");
 						ILI9341_Fill_Rect(5, 110, 315, 150, COLOR_BLUE);
 						ILI9341_printText(buf, 50, 120, COLOR_WHITE, COLOR_BLUE, 2);
 
@@ -102,44 +102,52 @@ int HMI_checkBlob(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, PIDController *pidCon
 	return updateHMI;
 }
 
+void HMI_update_soll(Hmi *hmi,Motor *motor, PIDController *pidController, int operation){
+	float Soll = 0.0;
+	char buf[20];
+	if(hmi->HmiInformation.stateMachine->getState(hmi->HmiInformation.stateMachine) == STATE_IDLE){
+		sprintf(buf, "Ruhemodus");
+	}
+	else if(hmi->HmiInformation.stateMachine->getState(hmi->HmiInformation.stateMachine) == STATE_AUTOMATIC_MODE){
+		Soll = pidController->get_setPoint(pidController);
+		if(operation == 1){
+			Soll = Soll + 0.05;
+		}else if(operation == 2)
+		{
+			Soll = Soll - 0.05;
+		}
+		pidController->set_setPoint(pidController,Soll);
+		sprintf(buf, "Soll: %.2f mm", Soll);
+	}else if(hmi->HmiInformation.stateMachine->getState(hmi->HmiInformation.stateMachine) == STATE_MANUAL_CONTROL){
+		Soll = motor->getSpeed(motor);
+		if(operation == 1){
+			Soll = Soll + 10;
+		}else if(operation == 2)
+		{
+			Soll = Soll - 10;
+		}
+		if(Soll > 100 || Soll < 0){
+			return;
+		}
+		motor->setSpeed(motor,Soll);
+		sprintf(buf, "Drehzahl: %.2f U/min", Soll);
+	}
+	ILI9341_Fill_Rect(5, 110, 315, 150, COLOR_BLUE);
+	ILI9341_printText(buf, 50, 120, COLOR_WHITE, COLOR_BLUE, 2);
+}
 
-void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, StateMachine *state, PIDController *pidController)
+void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle,Motor *motor, PIDController *pidController)
 {
 	if(myTS_Handle.isPressed)
 	{
-		//Draw a point
-
-
 		if(myTS_Handle.X >=30 && myTS_Handle.X<=70 && myTS_Handle.Y>=160 && myTS_Handle.Y<=200)
 		{
-			float Soll = pidController->get_setPoint(pidController);
-			Soll = Soll + 0.05;
-			pidController->set_setPoint(pidController,Soll);
-			char buf[20];
-			sprintf(buf, "Soll: %.2f mm", Soll);
-
-			ILI9341_Fill_Rect(5, 110, 315, 150, COLOR_BLUE);
-			ILI9341_printText(buf, 50, 120, COLOR_WHITE, COLOR_BLUE, 2);
-
-
-
+			HMI_update_soll(hmi,motor, pidController, 1);
 		}
 
 		if(myTS_Handle.X >=80 && myTS_Handle.X<=120 && myTS_Handle.Y>=160 && myTS_Handle.Y<=200)
 		{
-			float Soll = pidController->get_setPoint(pidController);
-			Soll = Soll - 0.05;
-			pidController->set_setPoint(pidController,Soll);
-
-			char buf[20];
-			sprintf(buf, "Soll: %.2f mm", Soll);
-
-			ILI9341_Fill_Rect(5, 110, 315, 150, COLOR_BLUE);
-			ILI9341_printText(buf, 50, 120, COLOR_WHITE, COLOR_BLUE, 2);
-
-
-
-			HAL_GPIO_WritePin(GPIOA, LED_Pin, GPIO_PIN_RESET);
+			HMI_update_soll(hmi,motor, pidController, 0);
 		}
 
 		if(myTS_Handle.X >=180 && myTS_Handle.X<=300 && myTS_Handle.Y>=190 && myTS_Handle.Y<=230)
@@ -159,6 +167,7 @@ void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle, StateMachine *state, 
   				ILI9341_Fill_Rect(180, 190, 300, 230, COLOR_RED);
   				ILI9341_printText("Idle", 230,  205, COLOR_WHITE, COLOR_RED, 2);
 			}
+			HMI_update_soll(hmi,motor, pidController, 0);
 		}
 	}
 

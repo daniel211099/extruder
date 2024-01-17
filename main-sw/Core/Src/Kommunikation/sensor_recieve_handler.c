@@ -48,8 +48,6 @@ void handleDiamRecieved(uint8_t uartNr, const char* value){
 	}
 	float extruder  = gHandler.sensorExtruder->getDiameter(gHandler.sensorExtruder);
 	float backValue = gHandler.sensorBack->getDiameter(gHandler.sensorBack);
-	//extruder = 2.0;
-	//HMI_updateDisplaySensor(extruder,backValue);
 	HMI_updateDisplaySensor(extruder,backValue);
 }
 float getFloatFromMessage(const char* value) {
