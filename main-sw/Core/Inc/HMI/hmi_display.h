@@ -15,7 +15,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "HMI/TSC2046.h"
-#include "main.h"
+
 #include "Management/global_state_machine.h"
 #include "SensorActuators/sensor.h"
 #include "Regelung/pid_controller.h"

@@ -2,16 +2,7 @@
  * hmi_display.c
  *
  *  Created on: Jan 3, 2024
- *      Author:
- */
-
-// TODO: ADD IMPLEMENTATION FOR HMI-DISPLAY
-
-/*
- * hmi_display.c
- *
- *  Created on: Jan 3, 2024
- *      Author:
+ *      Author: Matthias Haas
  */
 
 // TODO: ADD IMPLEMENTATION FOR HMI-DISPLAY
