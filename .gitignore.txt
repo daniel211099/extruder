@@ -12,7 +12,6 @@ Debug/
 Release/
 
 # Debug files (GDB, OpenOCD, etc.)
-Debug/
 *.su
 
 # CMake
