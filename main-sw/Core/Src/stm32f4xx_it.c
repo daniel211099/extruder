@@ -204,6 +204,7 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles TIM3 global interrupt.
   */
+
 /**
   * @brief This function handles USART1 global interrupt.
   */

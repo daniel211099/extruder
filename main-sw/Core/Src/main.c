@@ -167,6 +167,9 @@ int main(void)
   HAL_UART_Receive_IT(&huart2, (uint8_t *)uartDataPc.data.receivedData, 1);
 
   hmi = HMI_init(&stateMachine, &sensorExtruder, &sensorBack);
+
+  HAL_GPIO_WritePin(GPIOB, MOTOR_GND_Pin, GPIO_PIN_RESET);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -579,7 +582,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOC, fault_Pin|LCD_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, TS_CS_Pin|LCD_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, TS_CS_Pin|LCD_CS_Pin|MOTOR_GND_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -601,8 +604,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : TS_CS_Pin LCD_CS_Pin */
-  GPIO_InitStruct.Pin = TS_CS_Pin|LCD_CS_Pin;
+  /*Configure GPIO pins : TS_CS_Pin LCD_CS_Pin MOTOR_GND_Pin */
+  GPIO_InitStruct.Pin = TS_CS_Pin|LCD_CS_Pin|MOTOR_GND_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

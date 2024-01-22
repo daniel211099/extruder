@@ -85,6 +85,8 @@ void Error_Handler(void);
 #define TS_CS_GPIO_Port GPIOB
 #define LCD_CS_Pin GPIO_PIN_6
 #define LCD_CS_GPIO_Port GPIOB
+#define MOTOR_GND_Pin GPIO_PIN_9
+#define MOTOR_GND_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
