@@ -31,6 +31,13 @@ static void changeState(StateMachine *machine, State newState) {
 static State getState(const StateMachine *machine) {
     return machine->info.currentState;
 }
+
+void checkBlobDetected(struct StateMachine *machine, float diameter){
+    if (diameter >= machine->info.upBound) {
+        machine->setBlobDetected(machine,1);
+    }
+}
+
 void setBlobDetected(struct StateMachine *machine, int blobDetected){
 	machine->info.blobDetected = blobDetected;
 	if(blobDetected == 1){
@@ -44,7 +51,7 @@ static int getBlobDetected(const struct StateMachine *machine){
 
 
 // Initialization function for the State Machine
-StateMachine initStateMachine(Motor* motor, TIM_HandleTypeDef* timer) {
+StateMachine initStateMachine(Motor* motor, TIM_HandleTypeDef* timer, float upBound){
     StateMachine machine;
 
     machine.info.motor = motor;
@@ -54,10 +61,12 @@ StateMachine initStateMachine(Motor* motor, TIM_HandleTypeDef* timer) {
     machine.getState = getState;
     machine.setBlobDetected = setBlobDetected;
     machine.getBlobDetected = getBlobDetected;
+    machine.checkBlobDetected = checkBlobDetected;
 
     // Set initial state and initialize motor
     machine.info.currentState = STATE_IDLE;
     machine.info.blobDetected = 0;
+    machine.info.upBound = upBound;
 
 
     return machine;

@@ -23,11 +23,13 @@ CommandEntry sensor_interface_dictionary[] = {
 // Konstruktor
 SensorReceiveHandler createSensorReceiveHandler(Sensor* sensorExtruder,
 												Sensor* sensorBack,
+												StateMachine* stateMachine,
 												Hmi* hmi)
 {
 	SensorReceiveHandler handler;
     handler.sensorExtruder = sensorExtruder;
     handler.sensorBack = sensorBack;
+    handler.stateMachine = stateMachine;
     handler.hmi = hmi;
 
     // Zuweisung der globalen Variable
@@ -51,6 +53,7 @@ void handleDiamRecieved(uint8_t uartNr, const char* value){
 	}
 	float extruder  = gHandler.sensorExtruder->getDiameter(gHandler.sensorExtruder);
 	float backValue = gHandler.sensorBack->getDiameter(gHandler.sensorBack);
+	gHandler.stateMachine->checkBlobDetected(gHandler.stateMachine,backValue);
 	HMI_updateDisplaySensor(gHandler.hmi, extruder,backValue);
 }
 float getFloatFromMessage(const char* value) {

@@ -17,6 +17,7 @@
 typedef struct {
     Sensor* sensorExtruder;  // Sensor am Extruder
     Sensor* sensorBack;
+    StateMachine* stateMachine;
     Hmi* hmi;
     UartProcessor uartProcessor;
 } SensorReceiveHandler;
@@ -24,6 +25,7 @@ typedef struct {
 // Konstruktor
 SensorReceiveHandler createSensorReceiveHandler(Sensor* sensorExtruder,
 												Sensor* sensorBack,
+												StateMachine* stateMachine,
 												Hmi* hmi);
 
 // Methoden

@@ -154,14 +154,14 @@ int main(void)
 
 
   HAL_TIM_PWM_Start(&htim1, 0);
-  stateMachine = initStateMachine(&motor,&htim3);
+  stateMachine = initStateMachine(&motor,&htim3,2.5);
   pidController = pid_init(1.0, 0.0,0.0, 1.75);
   uartDataPc 		     = createUartDataObject();
   uartDataSensorExtruder = createUartDataObject();
   uartDataSensorBack	 = createUartDataObject();
   pcSender 		= createPcSendHandler(10);
   pcReciever 	= createPcReceiveHandler(&stateMachine,&pidController, &motor, &pcSender, &huart2);
-  sensorReciever = createSensorReceiveHandler(&sensorExtruder, &sensorBack, &hmi);
+  sensorReciever = createSensorReceiveHandler(&sensorExtruder, &sensorBack,&stateMachine, &hmi);
   HAL_UART_Receive_IT(&huart1, (uint8_t *)uartDataSensorExtruder.data.receivedData, 1);
   HAL_UART_Receive_IT(&huart6, (uint8_t *)uartDataSensorBack.data.receivedData, 1);
   HAL_UART_Receive_IT(&huart2, (uint8_t *)uartDataPc.data.receivedData, 1);
@@ -176,11 +176,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  // Check Blob Detected
+	  //stateMachine.checkBlobDetected(&stateMachine,sensorBack.getDiameter(&sensorBack));
+
 	  myTS_Handle = TSC2046_GetTouchData();
 	  HMI_getTouch(&hmi, myTS_Handle,&motor, &pidController);
-	  float diameter = sensorBack.getDiameter(&sensorBack);
 	  updateFaultHMI = HMI_checkBlob(&hmi, myTS_Handle, updateFaultHMI);
-	  HMI_signallight_check_blob(&stateMachine, fault_Pin, diameter, 2.5, 2);
+	  HMI_signallight_check_blob(&stateMachine, fault_Pin);
+
 
 
 	  if(uartDataPc.data.messageComplete){

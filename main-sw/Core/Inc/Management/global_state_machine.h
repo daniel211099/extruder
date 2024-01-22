@@ -25,6 +25,8 @@ typedef struct {
     Motor* motor;
     int blobDetected;
 	TIM_HandleTypeDef* timer;
+	float lowBound;
+	float upBound;
 }StateMachineInformation;
 
 // Definition der State Machine "Klasse"
@@ -32,12 +34,13 @@ struct StateMachine {
 	StateMachineInformation info;
 
     // Methoden für die State Machine
-    void  (*changeState)(struct StateMachine *machine, State newState);
-    State (*getState)	(const struct StateMachine *machine);
-    int  (*getBlobDetected) (const struct StateMachine *machine);
-    void (*setBlobDetected) (struct StateMachine *machine, int blobDetected);
+    void  (*changeState)	  (struct StateMachine *machine, State newState);
+    State (*getState)		  (const struct StateMachine *machine);
+    int   (*getBlobDetected)   (const struct StateMachine *machine);
+    void  (*setBlobDetected)   (struct StateMachine *machine, int blobDetected);
+    void  (*checkBlobDetected) (struct StateMachine *machine, float diameter);
 };
 
-StateMachine initStateMachine(Motor* motor, TIM_HandleTypeDef* timer);
+StateMachine initStateMachine(Motor* motor, TIM_HandleTypeDef* timer, float upBound);
 
 #endif /* INC_MANAGEMENT_GLOBAL_STATE_MACHINE_H_ */
