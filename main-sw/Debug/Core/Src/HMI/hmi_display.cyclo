@@ -1,0 +1,5 @@
+../Core/Src/HMI/hmi_display.c:13:5:HMI_init	1
+../Core/Src/HMI/hmi_display.c:49:5:HMI_checkBlob	8
+../Core/Src/HMI/hmi_display.c:96:6:HMI_update_soll	10
+../Core/Src/HMI/hmi_display.c:130:6:HMI_getTouch	16
+../Core/Src/HMI/hmi_display.c:168:6:HMI_updateDisplaySensor	6

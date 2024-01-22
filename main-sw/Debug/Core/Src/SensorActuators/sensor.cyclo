@@ -1,0 +1,7 @@
+../Core/Src/SensorActuators/sensor.c:14:7:getDiameter	1
+../Core/Src/SensorActuators/sensor.c:17:6:getPosition	1
+../Core/Src/SensorActuators/sensor.c:20:9:getUartPort	1
+../Core/Src/SensorActuators/sensor.c:25:6:setDiameter	1
+../Core/Src/SensorActuators/sensor.c:28:6:setPosition	1
+../Core/Src/SensorActuators/sensor.c:31:6:setUartPort	1
+../Core/Src/SensorActuators/sensor.c:35:8:initSensor	1

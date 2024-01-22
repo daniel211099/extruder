@@ -1,0 +1,6 @@
+../Core/Src/Management/global_state_machine.c:11:13:changeState	16	static
+../Core/Src/Management/global_state_machine.c:31:14:getState	16	static
+../Core/Src/Management/global_state_machine.c:35:6:checkBlobDetected	16	static
+../Core/Src/Management/global_state_machine.c:41:6:setBlobDetected	16	static
+../Core/Src/Management/global_state_machine.c:47:12:getBlobDetected	16	static
+../Core/Src/Management/global_state_machine.c:54:14:initStateMachine	80	static
