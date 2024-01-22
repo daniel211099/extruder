@@ -138,7 +138,7 @@ void HMI_getTouch(Hmi *hmi, TS_TOUCH_DATA_Def myTS_Handle,Motor *motor, PIDContr
 
 		if(myTS_Handle.X >=80 && myTS_Handle.X<=120 && myTS_Handle.Y>=160 && myTS_Handle.Y<=200)
 		{
-			HMI_update_soll(hmi,motor, pidController, 0);
+			HMI_update_soll(hmi,motor, pidController, 2);
 		}
 
 		if(myTS_Handle.X >=180 && myTS_Handle.X<=300 && myTS_Handle.Y>=190 && myTS_Handle.Y<=230)
