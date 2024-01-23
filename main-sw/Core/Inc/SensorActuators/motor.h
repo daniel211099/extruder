@@ -14,7 +14,7 @@
 typedef struct Motor Motor; // Vorwärtsdeklaration
 
 typedef struct {
-	int speed;
+	float speed;
 	TIM_HandleTypeDef* timer;
 } MotorInformation;
 
@@ -23,9 +23,9 @@ typedef struct {
 struct Motor {
     MotorInformation info;
     // Getter-Methoden
-    int (*getSpeed)(const Motor *motor);
+    float (*getSpeed)(const Motor *motor);
     // Setter-Methoden
-    void (*setSpeed)(Motor *motor, int speed);
+    void (*setSpeed)(Motor *motor, float speed);
 };
 
 // Konstruktor

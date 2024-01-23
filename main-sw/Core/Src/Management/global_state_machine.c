@@ -11,14 +11,14 @@
 static void changeState(StateMachine *machine, State newState) {
     switch (newState) {
         case STATE_IDLE:
-            machine->info.motor->setSpeed(machine->info.motor, 0);
+            machine->info.motor->setSpeed(machine->info.motor, 0.0);
             HAL_TIM_Base_Stop(machine->info.timer);
             break;
         case STATE_MANUAL_CONTROL:
             HAL_TIM_Base_Stop(machine->info.timer);
             break;
         case STATE_AUTOMATIC_MODE:
-        	machine->info.motor->setSpeed(machine->info.motor, 25);
+        	machine->info.motor->setSpeed(machine->info.motor, 25.0);
         	HAL_TIM_Base_Start_IT(machine->info.timer);
             break;
         default:

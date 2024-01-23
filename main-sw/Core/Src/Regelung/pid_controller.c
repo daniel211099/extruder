@@ -38,7 +38,7 @@ float get_setPoint(const PIDController *pid) {
 }
 float pid_update(PIDController *pid, float current_value) {
     // Berechne den Fehler
-    float error = pid->data.setpoint - current_value;
+    float error =  current_value - pid->data.setpoint;
 
     // Berechne den Proportionalanteil
     float p_term = pid->data.kp * error;

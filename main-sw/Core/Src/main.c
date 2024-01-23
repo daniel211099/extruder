@@ -146,6 +146,7 @@ int main(void)
   MX_USART6_UART_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
+  uint32_t period = (HAL_RCC_GetHCLKFreq() / ((htim3.Init.Prescaler + 1)* 5)) - 1;
   ILI9341_Init(&hspi1, LCD_CS_GPIO_Port, LCD_CS_Pin, LCD_DC_GPIO_Port, LCD_DC_Pin, LCD_RST_GPIO_Port, LCD_RST_Pin);
   ILI9341_setRotation(2);
   ILI9341_Fill(COLOR_NAVY);
@@ -154,8 +155,8 @@ int main(void)
 
 
   HAL_TIM_PWM_Start(&htim1, 0);
-  stateMachine = initStateMachine(&motor,&htim3,2.5);
-  pidController = pid_init(1.0, 0.0,0.0, 1.75);
+  stateMachine = initStateMachine(&motor,&htim3,2.3);
+  pidController = pid_init(1.0, 0.0,0.0, 2);
   uartDataPc 		     = createUartDataObject();
   uartDataSensorExtruder = createUartDataObject();
   uartDataSensorBack	 = createUartDataObject();
@@ -169,6 +170,7 @@ int main(void)
   hmi = HMI_init(&stateMachine, &sensorExtruder, &sensorBack);
 
   HAL_GPIO_WritePin(GPIOB, MOTOR_GND_Pin, GPIO_PIN_RESET);
+  motor.setSpeed(&motor,0);
 
   /* USER CODE END 2 */
 
@@ -433,9 +435,9 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 4;
+  htim3.Init.Prescaler = 60000;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 65535;
+  htim3.Init.Period = 3000;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
@@ -646,12 +648,23 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
 void TIM3_IRQHandler(void)
 {
-  float diameter = sensorBack.getDiameter(&sensorBack);
+  float diameter = sensorBack.getDiameter(&sensorExtruder);
   float cValue   = pidController.pid_update(&pidController,diameter);
 
   float speed = motor.getSpeed(&motor);
+  float diffSpeed = 0;
 
-  speed = speed + cValue * speed;
+  if(speed == 0){
+	  if(cValue > 1){
+		  speed = 10 * cValue;
+	  }
+  }else{
+	  speed = speed * cValue;
+  }
+  if(speed > 100){
+	  speed = 100;
+  }
+
   motor.setSpeed(&motor,speed);
   HAL_TIM_IRQHandler(&htim3);
 }

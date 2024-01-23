@@ -12,9 +12,9 @@
 
 void HMI_signallight_check_blob(StateMachine* stateMachine, uint16_t pin) {
 	if (stateMachine->getBlobDetected(stateMachine) == 1) {
-        HAL_GPIO_WritePin(GPIOC, pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(GPIOC, pin, GPIO_PIN_RESET);
     }
 	else {
-        HAL_GPIO_WritePin(GPIOC, pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOC, pin, GPIO_PIN_SET);
     }
 }

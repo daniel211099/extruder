@@ -8,12 +8,12 @@
 #include <SensorActuators/motor.h>
 #include "stm32f4xx_hal.h"
 // Implementierung der Getter-Methode für die Geschwindigkeit des Motors
-int getSpeed(const Motor *motor) {
+float getSpeed(const Motor *motor) {
     return motor->info.speed;
 }
 
 // Implementierung der Setter-Methode für die Geschwindigkeit des Motors
-void setSpeed(Motor *motor, int speed) {
+void setSpeed(Motor *motor, float speed) {
 	if(speed <= 0){
 		HAL_TIM_PWM_Stop(motor->info.timer, 0);
 	    motor->info.speed = 0;
@@ -63,5 +63,8 @@ Motor initMotor(TIM_HandleTypeDef *timer) {
     newMotor.info.timer = timer;
     newMotor.getSpeed = &getSpeed;
     newMotor.setSpeed = &setSpeed;
+
+    newMotor.setSpeed(&newMotor, 0);
+
     return newMotor;
 }
