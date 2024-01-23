@@ -146,7 +146,6 @@ int main(void)
   MX_USART6_UART_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-  uint32_t period = (HAL_RCC_GetHCLKFreq() / ((htim3.Init.Prescaler + 1)* 5)) - 1;
   ILI9341_Init(&hspi1, LCD_CS_GPIO_Port, LCD_CS_Pin, LCD_DC_GPIO_Port, LCD_DC_Pin, LCD_RST_GPIO_Port, LCD_RST_Pin);
   ILI9341_setRotation(2);
   ILI9341_Fill(COLOR_NAVY);
@@ -156,7 +155,7 @@ int main(void)
 
   HAL_TIM_PWM_Start(&htim1, 0);
   stateMachine = initStateMachine(&motor,&htim3,2.3);
-  pidController = pid_init(1.0, 0.0,0.0, 2);
+  pidController = pid_init(5.0, 0.0,0.0, 2);
   uartDataPc 		     = createUartDataObject();
   uartDataSensorExtruder = createUartDataObject();
   uartDataSensorBack	 = createUartDataObject();
@@ -652,17 +651,16 @@ void TIM3_IRQHandler(void)
   float cValue   = pidController.pid_update(&pidController,diameter);
 
   float speed = motor.getSpeed(&motor);
-  float diffSpeed = 0;
 
   if(speed == 0){
 	  if(cValue > 1){
 		  speed = 10 * cValue;
 	  }
   }else{
-	  speed = speed * cValue;
+	  speed = speed + cValue; //* cValue;
   }
-  if(speed > 100){
-	  speed = 100;
+  if(speed > 90){
+	  speed = 90;
   }
 
   motor.setSpeed(&motor,speed);

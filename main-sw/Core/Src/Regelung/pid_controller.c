@@ -43,6 +43,13 @@ float pid_update(PIDController *pid, float current_value) {
     // Berechne den Proportionalanteil
     float p_term = pid->data.kp * error;
 
+    pid->data.integral += error;
+    if(pid->data.integral > 50)
+    {
+    	pid->data.integral = 50;
+    }
+    double integral = pid->data.ki * pid->data.integral;
+
     // Summe der Anteile für die Ausgabe
     float output = p_term;
 
@@ -72,7 +79,7 @@ PIDController pid_init(float kp, float ki, float kd, float setpoint) {
     pidController.set_setPoint = set_setPoint;
 
     pidController.pid_update = pid_update;
-
+    pidController.data.integral = 0;
     return pidController;
 }
 

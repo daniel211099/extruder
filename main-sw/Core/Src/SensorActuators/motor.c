@@ -14,7 +14,7 @@ float getSpeed(const Motor *motor) {
 
 // Implementierung der Setter-Methode für die Geschwindigkeit des Motors
 void setSpeed(Motor *motor, float speed) {
-	if(speed <= 0){
+	if(speed <= 0.5){
 		HAL_TIM_PWM_Stop(motor->info.timer, 0);
 	    motor->info.speed = 0;
 		return;
