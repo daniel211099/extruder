@@ -2,7 +2,7 @@
  * uart_data.c
  *
  *  Created on: Nov 29, 2023
- *      Author: danie
+ *      Author: Daniel Alf
  */
 
 
